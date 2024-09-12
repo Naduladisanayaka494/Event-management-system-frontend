@@ -14,7 +14,7 @@ export class SignUpComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router // Inject Router service
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -39,13 +39,10 @@ export class SignUpComponent implements OnInit {
 
       this.authService.register(user).subscribe(
         (response) => {
-          // Show success alert
           alert('Registration successful! Redirecting to login page...');
-          // Redirect to login page
           this.router.navigate(['/login']);
         },
         (error) => {
-          // Show error alert
           alert('Registration failed. Please try again.');
           console.error('Signup failed', error);
         }

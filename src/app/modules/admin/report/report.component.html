@@ -1,1 +1,76 @@
-<p>report works!</p>
+<div class="report-container">
+  <h1 class="page-title">Event Report</h1>
+
+  <!-- Filter Section -->
+  <!-- <div class="filter-section">
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" [(ngModel)]="filter.startDate">
+
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" [(ngModel)]="filter.endDate">
+
+    <label for="singer">Singer:</label>
+    <select id="singer" [(ngModel)]="filter.singerId">
+      <option *ngFor="let singer of singers" [value]="singer.id">{{ singer.name }}</option>
+    </select>
+
+    <button (click)="applyFilter()">Filter</button>
+    <button (click)="downloadReport()">Download Report</button>
+  </div> -->
+
+  <!-- Events Table -->
+  <table class="events-table">
+    <thead>
+      <tr>
+        <th>Event Name</th>
+        <th>Location</th>
+        <th>Date and Time</th>
+        <th>Singer</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let event of events">
+        <td>{{ event.eventName }}</td>
+        <td>{{ event.location }}</td>
+        <td>{{ event.eventDateTime | date:'short' }}</td>
+        <td>{{ event.assignedSinger?.name }}</td>
+        <td>
+          <button (click)="openEditModal(event)">Edit</button>
+          <button (click)="deleteEvent(event.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Edit Modal -->
+  <div class="modal" *ngIf="selectedEvent">
+    <div class="modal-content">
+      <span class="close" (click)="closeEditModal()">&times;</span>
+      <h2>Edit Event</h2>
+      <form [formGroup]="editForm" (ngSubmit)="updateEvent()">
+        <div class="form-group">
+          <label for="eventName">Event Name</label>
+          <input id="eventName" formControlName="eventName" type="text" />
+        </div>
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input id="location" formControlName="location" type="text" />
+        </div>
+        <div class="form-group">
+          <label for="eventDateTime">Event Date and Time</label>
+          <input id="eventDateTime" formControlName="eventDateTime" type="datetime-local" />
+        </div>
+        <div class="form-group">
+          <label for="assignedSingerId">Assigned Singer</label>
+          <select id="assignedSingerId" formControlName="assignedSingerId">
+            <option *ngFor="let singer of singers" [value]="singer.id">
+              {{ singer.name }}
+            </option>
+          </select>
+        </div>
+        <button type="submit">Update</button>
+      </form>
+    </div>
+  </div>
+</div>
