@@ -74,6 +74,42 @@ $active-color: lighten($primary-color, 10%);
 
     .nav-item {
       margin-bottom: 1rem;
+      transform: none;
     }
+    .navbar-nav {
+      .nav-link {
+        padding: 0.5rem 1rem;
+        text-align: center;
+        font-size: 1rem;
+
+        &::after {
+          height: 1px;
+        }
+      }
+    }
+  }
+  .navbar-collapse {
+    background-color: $bg-color;
+    padding: 1rem;
+
+    .nav-item {
+      width: 100%;
+      text-align: center;
+    }
+  }
+  .navbar-toggler {
+    background-color: $primary-color;
+    border: none;
+
+    &:focus {
+      outline: none;
+    }
+  }
+  .modal-content {
+    width: 100%;
+    padding: 1rem;
+    max-width: none;
+    box-shadow: none;
+    border-radius: 0;
   }
 }

@@ -3,6 +3,10 @@
   font-family: 'Arial', sans-serif;
   max-width: 1200px;
   margin: 0 auto;
+
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
 }
 
 .dashboard-title {
@@ -10,6 +14,11 @@
   font-size: 2.5rem;
   margin-bottom: 30px;
   color: #333;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
 }
 
 .dashboard-summary {
@@ -21,6 +30,7 @@
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
+    gap: 15px;
   }
 }
 
@@ -37,32 +47,40 @@
     transform: translateY(-10px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   }
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 }
 
 .summary-card-icon {
   font-size: 2.5rem;
   margin-bottom: 10px;
   color: #007bff;
-}
 
-.total-events {
-  background-color: #f7f9fc;
-}
-
-.total-participants {
-  background-color: #eaf4f4;
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
 }
 
 .summary-card-info h2 {
   margin: 10px 0;
   font-size: 1.5rem;
   color: #333;
+
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+  }
 }
 
 .dashboard-details {
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  @media (max-width: 768px) {
+    gap: 15px;
+  }
 }
 
 .recent-events,
@@ -71,6 +89,10 @@
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
 }
 
 .recent-events h3,
@@ -78,6 +100,11 @@
   font-size: 1.5rem;
   margin-bottom: 15px;
   color: #333;
+
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+  }
 }
 
 .event-item {
@@ -86,16 +113,42 @@
   margin-bottom: 15px;
   padding: 10px;
   border-bottom: 1px solid #ddd;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
 }
 
 .event-details {
   flex: 1;
+
+  h4 {
+    font-size: 1.2rem;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+    }
+  }
+
+  p {
+    font-size: 0.9rem;
+
+    @media (max-width: 768px) {
+      font-size: 0.85rem;
+    }
+  }
 }
 
 .event-status {
   display: flex;
   align-items: center;
   font-size: 0.9rem;
+
+  @media (max-width: 768px) {
+    align-self: flex-end;
+  }
 }
 
 .status-label {

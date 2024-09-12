@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminService } from '../../../services/admin/admin.service'; // Adjust the path accordingly
+import { AdminService } from '../../../services/admin/admin.service';
 
 @Component({
   selector: 'app-dashboard',

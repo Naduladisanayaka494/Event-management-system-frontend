@@ -1,1 +1,69 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+  <h1 class="dashboard-title">Dashboard</h1>
+
+  <div class="dashboard-summary">
+    <div class="summary-card total-events">
+      <div class="summary-card-icon">
+        <i class="fa fa-calendar-alt"></i>
+      </div>
+      <div class="summary-card-info">
+        <h2>Total Events</h2>
+        <p style="font-size: 2em">{{ totalEvents }}</p>
+      </div>
+    </div>
+    <div class="summary-card total-participants">
+      <div class="summary-card-icon">
+        <i class="fa fa-users"></i>
+      </div>
+      <div class="summary-card-info">
+        <h2>Total Participants</h2>
+        <p style="font-size: 2em">{{ totalParticipants }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-details">
+    <div class="recent-events">
+      <h3>Recent Events</h3>
+      <ul>
+        <li *ngFor="let event of recentEvents">
+          <div class="event-item">
+            <div class="event-details">
+              <h4>{{ event.eventName }}</h4>
+              <p><strong>Location:</strong> {{ event.location }}</p>
+              <p>
+                <strong>Date:</strong>
+                {{ event.eventDateTime | date : "short" }}
+              </p>
+            </div>
+            <div class="event-status">
+              <span class="status-label">Status:</span>
+              <span class="status-value">{{ event.status || "Pending" }}</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="upcoming-events">
+      <h3>Upcoming Events</h3>
+      <ul>
+        <li *ngFor="let event of upcomingEvents">
+          <div class="event-item">
+            <div class="event-details">
+              <h4>{{ event.eventName }}</h4>
+              <p><strong>Location:</strong> {{ event.location }}</p>
+              <p>
+                <strong>Date:</strong>
+                {{ event.eventDateTime | date : "short" }}
+              </p>
+            </div>
+            <div class="event-status">
+              <span class="status-label">Status:</span>
+              <span class="status-value">{{ event.status || "Pending" }}</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

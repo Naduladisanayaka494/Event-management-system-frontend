@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { StorageService } from '../../auth/services/storage/storage.service';
 
 export interface EventDto {
   id?: number;
@@ -53,8 +54,26 @@ export class AdminService {
   deleteEvent(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
-  getEventsBySingerId(singerId: number): Observable<Event[]> {
-    return this.http.get<Event[]>(`${this.baseUrl}/singer/${singerId}`);
+  // getEventsBySingerId(): Observable<Event[]> {
+  //   return this.http.get<Event[]>(
+  //     `${this.baseUrl}/singer/` + StorageService.getUserId
+  //   );
+  // }
+
+  createAuthorizationHeader(): HttpHeaders {
+    let authHeader: HttpHeaders = new HttpHeaders();
+    return authHeader.set(
+      'Authorization',
+      'Bearer ' + StorageService.getToken()
+    );
+  }
+
+  getEventsBySingerId(): Observable<Event[]> {
+    const userId = StorageService.getUserId();
+    const headers = this.createAuthorizationHeader();
+    return this.http.get<Event[]>(`${this.baseUrl}/singer/` + userId, {
+      headers: headers,
+    });
   }
 
   filterEventsByDate(startDate: string, endDate: string): Observable<Event[]> {
