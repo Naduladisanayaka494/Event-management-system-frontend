@@ -56,31 +56,32 @@
     <div class="modal-content">
       <span class="close" (click)="closeEditModal()">&times;</span>
       <h2>Edit Event</h2>
-      <form [formGroup]="editForm" (ngSubmit)="updateEvent()">
-        <div class="form-group">
-          <label for="eventName">Event Name</label>
-          <input id="eventName" formControlName="eventName" type="text" class="form-control" />
-        </div>
+    <form [formGroup]="editForm" (ngSubmit)="updateEvent()">
+  <div class="form-group">
+    <label for="eventName">Event Name</label>
+    <input id="eventName" formControlName="eventName" type="text" class="form-control" />
+  </div>
 
-        <div class="form-group">
-          <label for="location">Location</label>
-          <input id="location" formControlName="location" type="text" class="form-control" />
-        </div>
+  <div class="form-group">
+    <label for="location">Location</label>
+    <input id="location" formControlName="location" type="text" class="form-control" />
+  </div>
 
-        <div class="form-group">
-          <label for="eventDateTime">Date and Time</label>
-          <input id="eventDateTime" formControlName="eventDateTime" type="datetime-local" class="form-control" />
-        </div>
+  <div class="form-group">
+    <label for="eventDateTime">Date and Time</label>
+    <input id="eventDateTime" formControlName="eventDateTime" type="datetime-local" class="form-control" />
+  </div>
 
-        <div class="form-group">
-          <label for="singerId">Singer</label>
-          <select id="singerId" formControlName="singerId" class="form-control">
-            <option *ngFor="let singer of singers" [value]="singer.id">{{ singer.name }}</option>
-          </select>
-        </div>
+  <div class="form-group">
+    <label for="singerId">Singer</label>
+    <select id="singerId" formControlName="assignedSingerId" class="form-control">
+      <option *ngFor="let singer of singers" [value]="singer.id">{{ singer.name }}</option>
+    </select>
+  </div>
 
-        <button type="submit" class="update-button">Update Event</button>
-      </form>
+  <button type="submit" class="update-button">Update Event</button>
+</form>
+
     </div>
   </div>
 </div>

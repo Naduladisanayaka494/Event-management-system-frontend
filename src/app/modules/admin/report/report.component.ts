@@ -37,7 +37,6 @@ export class ReportComponent implements OnInit {
       singerId: [''],
     });
   }
-
   ngOnInit(): void {
     this.loadEvents();
     this.loadSingers();
@@ -61,7 +60,7 @@ export class ReportComponent implements OnInit {
     this.editForm.patchValue({
       eventName: event.eventName,
       location: event.location,
-      eventDateTime: new Date(event.eventDateTime).toISOString().slice(0, 16), // Format date
+      eventDateTime: new Date(event.eventDateTime).toISOString().slice(0, 16), 
       assignedSingerId: event.assignedSingerId,
     });
   }
@@ -105,19 +104,21 @@ export class ReportComponent implements OnInit {
 
   updateEvent(): void {
     if (this.editForm.valid) {
-      this.eventService
-        .updateEvent(this.selectedEvent.id, this.editForm.value)
-        .subscribe(
-          () => {
-            alert('Event updated successfully!');
-            this.loadEvents();
-            this.closeEditModal();
-          },
-          (error) => {
-            alert('Failed to update event.');
-            console.error('Update failed', error);
-          }
-        );
+      const updatedEvent = {
+        ...this.editForm.value
+      };
+
+      this.eventService.updateEvent(this.selectedEvent.id, updatedEvent).subscribe(
+        () => {
+          alert('Event updated successfully!');
+          this.loadEvents();
+          this.closeEditModal();
+        },
+        (error) => {
+          alert('Failed to update event.');
+          console.error('Update failed', error);
+        }
+      );
     }
   }
 
