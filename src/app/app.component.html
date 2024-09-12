@@ -1,0 +1,70 @@
+<div *ngIf="!isAdminLoggedIn && !isStudentLoggedIn ">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="/login">Event Manegement</a>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/register" routerLinkActive="active">Sign Up</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<div *ngIf="isAdminLoggedIn">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="/login"> Admin LoggedIn</a>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/admin/add-money" routerLinkActive="active">Add Money</a>
+          </li>
+             <li class="nav-item">
+            <a class="nav-link" routerLink="/admin/spend-money" routerLinkActive="active">Spend Money</a>
+          </li>
+              <li class="nav-item">
+            <a class="nav-link" routerLink="/admin/transactions" routerLinkActive="active">Transactions</a>
+          </li>
+                 <li class="nav-item">
+            <a class="nav-link" routerLink="/admin/current-money" routerLinkActive="active">Current-Money</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="logout()" routerLinkActive="active">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<div *ngIf="isStudentLoggedIn ">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="/login">SINGER Logged In</a>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/student/dashboard" routerLinkActive="active">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/student/my-transactions" routerLinkActive="active">My-Transactions </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="logout()" routerLinkActive="active">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<router-outlet></router-outlet>

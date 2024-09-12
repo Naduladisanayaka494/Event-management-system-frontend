@@ -1,0 +1,29 @@
+<div class="container-fluid bg-light min-vh-100 d-flex align-items-center justify-content-center">
+  <div class="card shadow-sm p-4 w-100" style="max-width: 400px;">
+    <h1 class="text-center mb-4">Login</h1>
+    <form class="login-form" [formGroup]="loginform" (ngSubmit)="login()">
+      <div class="form-group mb-3">
+        <label for="email">Email</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="bi bi-person"></i></span>
+          </div>
+          <input type="email" id="email" formControlName="email" class="form-control" placeholder="Email" required>
+        </div>
+      </div>
+      <div class="form-group mb-4">
+        <label for="password">Password</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+          </div>
+          <input type="password" id="password" formControlName="password" class="form-control" placeholder="Password" required>
+        </div>
+      </div>
+      <button class="btn btn-primary w-100 mb-2" type="submit">Login</button>
+      <p class="text-center mb-0">
+        or <a href="/register" class="text-primary">Register Now!</a>
+      </p>
+    </form>
+  </div>
+</div>

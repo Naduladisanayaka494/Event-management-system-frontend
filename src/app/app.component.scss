@@ -1,0 +1,79 @@
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$bg-color: #f8f9fa;
+$hover-color: darken($primary-color, 10%);
+$active-color: lighten($primary-color, 10%);
+
+.navbar {
+  background-color: $bg-color;
+  border-bottom: 2px solid $primary-color;
+
+  .navbar-brand {
+    color: $primary-color;
+    font-weight: bold;
+    font-size: 1.5rem;
+
+    &:hover {
+      color: $hover-color;
+    }
+  }
+
+  .nav-link {
+    color: $secondary-color;
+
+    &:hover,
+    &.active {
+      color: $primary-color;
+    }
+  }
+}
+
+.nav-item {
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.navbar-nav {
+  .nav-link {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      display: block;
+      margin-top: 5px;
+      right: 0;
+      background: $primary-color;
+      transition: width 0.3s ease;
+    }
+
+    &:hover::after {
+      width: 100%;
+      left: 0;
+      background: $hover-color;
+    }
+
+    &.active::after {
+      width: 100%;
+      left: 0;
+      background: $active-color;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    .navbar-brand {
+      font-size: 1.2rem;
+    }
+
+    .nav-item {
+      margin-bottom: 1rem;
+    }
+  }
+}
