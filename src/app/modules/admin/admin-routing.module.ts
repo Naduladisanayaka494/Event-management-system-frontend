@@ -5,6 +5,8 @@ import { EditTranactionComponent } from './edit-tranaction/edit-tranaction.compo
 import { ReportComponent } from './report/report.component';
 import { AddEventsComponent } from './add-events/add-events.component';
 
+
+
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'edit-tranaction', component: EditTranactionComponent },

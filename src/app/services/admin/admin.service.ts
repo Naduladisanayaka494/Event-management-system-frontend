@@ -22,7 +22,8 @@ export interface Event {
   providedIn: 'root',
 })
 export class AdminService {
-  private baseUrl = 'http://localhost:8080/api/events'; // Update with the actual URL
+  private baseUrl = 'http://localhost:8080/api/events';
+  private baseUrl2 = 'http://localhost:8080/api/auth/singers'; // Update with the actual URL
 
   constructor(private http: HttpClient) {}
   createEvent(eventDto: EventDto): Observable<Event> {
@@ -31,10 +32,13 @@ export class AdminService {
     });
   }
 
+  getAllSingers() {
+    return this.http.get<Event[]>(`${this.baseUrl2}`);
+  }
+
   getAllEvents(): Observable<Event[]> {
     return this.http.get<Event[]>(`${this.baseUrl}`);
   }
-
 
   getEventById(id: number): Observable<Event> {
     return this.http.get<Event>(`${this.baseUrl}/${id}`);

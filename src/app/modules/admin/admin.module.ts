@@ -6,18 +6,21 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddEventsComponent } from './add-events/add-events.component';
 import { ReportComponent } from './report/report.component';
 import { EditTranactionComponent } from './edit-tranaction/edit-tranaction.component';
-
+import { ChartsModule } from 'ng2-charts';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     AddEventsComponent,
     ReportComponent,
-    EditTranactionComponent
+    EditTranactionComponent,
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule
-  ]
+    AdminRoutingModule,
+    ChartsModule,
+    ReactiveFormsModule,
+  ],
 })
-export class AdminModule { }
+export class AdminModule {}

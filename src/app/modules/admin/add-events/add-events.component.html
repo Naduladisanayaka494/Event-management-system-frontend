@@ -1,1 +1,64 @@
-<p>add-events works!</p>
+<div class="add-events-container">
+  <h1 class="page-title">Add New Event</h1>
+
+  <form [formGroup]="eventForm" (ngSubmit)="onSubmit()" class="add-event-form">
+    <div class="form-group">
+      <label for="eventName">Event Name</label>
+      <input
+        id="eventName"
+        formControlName="eventName"
+        type="text"
+        class="form-control"
+        placeholder="Enter event name"
+      />
+      <div *ngIf="eventForm.get('eventName')?.invalid && eventForm.get('eventName')?.touched" class="error-message">
+        Event Name is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="location">Location</label>
+      <input
+        id="location"
+        formControlName="location"
+        type="text"
+        class="form-control"
+        placeholder="Enter location"
+      />
+      <div *ngIf="eventForm.get('location')?.invalid && eventForm.get('location')?.touched" class="error-message">
+        Location is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="eventDateTime">Event Date and Time</label>
+      <input
+        id="eventDateTime"
+        formControlName="eventDateTime"
+        type="datetime-local"
+        class="form-control"
+      />
+      <div *ngIf="eventForm.get('eventDateTime')?.invalid && eventForm.get('eventDateTime')?.touched" class="error-message">
+        Event Date and Time is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="assignedSingerId">Assigned Singer</label>
+      <select
+        id="assignedSingerId"
+        formControlName="assignedSingerId"
+        class="form-control"
+      >
+        <option *ngFor="let singer of singers" [value]="singer.id">
+          {{ singer.name }}
+        </option>
+      </select>
+      <div *ngIf="eventForm.get('assignedSingerId')?.invalid && eventForm.get('assignedSingerId')?.touched" class="error-message">
+        Please select an assigned singer
+      </div>
+    </div>
+
+    <button type="submit" class="submit-button" [disabled]="eventForm.invalid">Add Event</button>
+  </form>
+</div>
