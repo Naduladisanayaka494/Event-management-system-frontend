@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AdminService } from '../../../services/admin/admin.service'; // Adjust the path
+import jsPDF from 'jspdf';
 
 
 @Component({
@@ -12,12 +13,14 @@ import { AdminService } from '../../../services/admin/admin.service'; // Adjust 
 export class ReportComponent implements OnInit {
   events: any[] = [];
   singers: any[] = [];
+
   filter = { startDate: '', endDate: '', singerId: '' };
   selectedEvent: any = null;
   editForm: FormGroup;
+  filterForm: FormGroup;
 
   constructor(
-    private eventService:  AdminService,
+    private eventService: AdminService,
     private fb: FormBuilder,
     private router: Router
   ) {
@@ -26,6 +29,12 @@ export class ReportComponent implements OnInit {
       location: ['', Validators.required],
       eventDateTime: ['', Validators.required],
       assignedSingerId: ['', Validators.required],
+    });
+
+    this.filterForm = this.fb.group({
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
+      singerId: [''],
     });
   }
 
@@ -41,10 +50,10 @@ export class ReportComponent implements OnInit {
   }
 
   loadSingers(): void {
-   this.eventService.getAllSingers().subscribe((singers) => {
-     this.singers = singers;
-     console.log('hi', singers);
-   });
+    this.eventService.getAllSingers().subscribe((singers) => {
+      this.singers = singers;
+      console.log('hi', singers);
+    });
   }
 
   openEditModal(event: any): void {
@@ -59,6 +68,39 @@ export class ReportComponent implements OnInit {
 
   closeEditModal(): void {
     this.selectedEvent = null;
+  }
+
+  filterEvents(): void {
+    const { startDate, endDate, singerId } = this.filterForm.value;
+
+    if (this.filterForm.valid) {
+      if (startDate && endDate && singerId) {
+        const formattedStartDate =
+          new Date(startDate).toISOString().split('T')[0] + 'T00:00:00';
+        const formattedEndDate =
+          new Date(endDate).toISOString().split('T')[0] + 'T00:00:00';
+
+        this.eventService
+          .filterEventsByDateAndSinger(
+            formattedStartDate,
+            formattedEndDate,
+            singerId
+          )
+          .subscribe(
+            (filteredEvents) => {
+              this.events = filteredEvents;
+            },
+            (error) => {
+              alert('Failed to filter events.');
+              console.error('Filter error', error);
+            }
+          );
+      } else {
+        this.eventService.getAllEvents().subscribe((res: any) => {
+          this.events = res;
+        });
+      }
+    }
   }
 
   updateEvent(): void {
@@ -93,33 +135,52 @@ export class ReportComponent implements OnInit {
       );
     }
   }
-
-  applyFilter(): void {
-    // this.eventService.filterEventsByDate(this.filter).subscribe((events) => {
-    //   this.events = events;
-    // });
-  }
-
   downloadReport(): void {
-    const csvContent =
-      'data:text/csv;charset=utf-8,' +
-      this.events
-        .map((event) =>
-          [
-            event.eventName,
-            event.location,
-            event.eventDateTime,
-            event.assignedSinger?.name,
-          ].join(',')
-        )
-        .join('\n');
+    const doc = new jsPDF();
 
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement('a');
-    link.setAttribute('href', encodedUri);
-    link.setAttribute('download', 'events_report.csv');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // Set title
+    doc.setFontSize(18);
+    doc.text('Events Report', 14, 22);
+
+    // Define column headers
+    const headers = [
+      'Event Name',
+      'Location',
+      'Date & Time',
+      'Assigned Singer',
+    ];
+    const columnWidth = 40;
+    const startY = 30;
+    const rowHeight = 10;
+
+    // Add headers
+    let currentY = startY;
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    headers.forEach((header, index) => {
+      doc.text(header, 14 + index * columnWidth, currentY);
+    });
+    currentY += rowHeight;
+
+    // Add rows
+    doc.setFont('helvetica', 'normal');
+    this.events.forEach((event) => {
+      doc.text(event.eventName, 14, currentY);
+      doc.text(event.location, 14 + columnWidth, currentY);
+      doc.text(event.eventDateTime, 14 + 2 * columnWidth, currentY);
+
+      // Add a small gap before Assigned Singer
+      const gap = 10; // Adjust the gap size as needed
+      doc.text(
+        event.assignedSinger?.name || '',
+        14 + 3 * columnWidth + gap,
+        currentY
+      );
+
+      currentY += rowHeight;
+    });
+
+    // Save PDF
+    doc.save('events_report.pdf');
   }
 }

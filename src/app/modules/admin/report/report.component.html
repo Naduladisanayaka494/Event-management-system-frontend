@@ -1,28 +1,57 @@
 <div class="report-container">
   <h1 class="page-title">Event Report</h1>
-  <table class="events-table">
-    <thead>
-      <tr>
-        <th>Event Name</th>
-        <th>Location</th>
-        <th>Date and Time</th>
-        <th>Singer</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let event of events">
-        <td>{{ event.eventName }}</td>
-        <td>{{ event.location }}</td>
-        <td>{{ event.eventDateTime | date:'short' }}</td>
-        <td>{{ event.assignedSinger?.name }}</td>
-        <td>
-          <button (click)="openEditModal(event)">Edit</button>
-          <button (click)="deleteEvent(event.id)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+
+  <form [formGroup]="filterForm" (ngSubmit)="filterEvents()" class="filter-section">
+    <div class="filter-buttons">
+      <button type="button" class="download-button" (click)="downloadReport()">Download Report</button>
+      <button type="submit" class="filter-button">Filter</button>
+    </div>
+
+    <div class="form-group">
+      <label for="startDate">Start Date</label>
+      <input id="startDate" formControlName="startDate" type="date" class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label for="endDate">End Date</label>
+      <input id="endDate" formControlName="endDate" type="date" class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label for="singerId">Singer</label>
+      <select id="singerId" formControlName="singerId" class="form-control">
+        <option value="">All Singers</option>
+        <option *ngFor="let singer of singers" [value]="singer.id">{{ singer.name }}</option>
+      </select>
+    </div>
+  </form>
+
+  <div class="table-wrapper">
+    <table class="events-table">
+      <thead>
+        <tr>
+          <th>Event Name</th>
+          <th>Location</th>
+          <th>Date and Time</th>
+          <th>Singer</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let event of events">
+          <td>{{ event.eventName }}</td>
+          <td>{{ event.location }}</td>
+          <td>{{ event.eventDateTime | date: 'short' }}</td>
+          <td>{{ event.assignedSinger?.name }}</td>
+          <td>
+            <button class="edit-button" (click)="openEditModal(event)">Edit</button>
+            <button class="delete-button" (click)="deleteEvent(event.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="modal" *ngIf="selectedEvent">
     <div class="modal-content">
       <span class="close" (click)="closeEditModal()">&times;</span>
@@ -30,25 +59,27 @@
       <form [formGroup]="editForm" (ngSubmit)="updateEvent()">
         <div class="form-group">
           <label for="eventName">Event Name</label>
-          <input id="eventName" formControlName="eventName" type="text" />
+          <input id="eventName" formControlName="eventName" type="text" class="form-control" />
         </div>
+
         <div class="form-group">
           <label for="location">Location</label>
-          <input id="location" formControlName="location" type="text" />
+          <input id="location" formControlName="location" type="text" class="form-control" />
         </div>
+
         <div class="form-group">
-          <label for="eventDateTime">Event Date and Time</label>
-          <input id="eventDateTime" formControlName="eventDateTime" type="datetime-local" />
+          <label for="eventDateTime">Date and Time</label>
+          <input id="eventDateTime" formControlName="eventDateTime" type="datetime-local" class="form-control" />
         </div>
+
         <div class="form-group">
-          <label for="assignedSingerId">Assigned Singer</label>
-          <select id="assignedSingerId" formControlName="assignedSingerId">
-            <option *ngFor="let singer of singers" [value]="singer.id">
-              {{ singer.name }}
-            </option>
+          <label for="singerId">Singer</label>
+          <select id="singerId" formControlName="singerId" class="form-control">
+            <option *ngFor="let singer of singers" [value]="singer.id">{{ singer.name }}</option>
           </select>
         </div>
-        <button type="submit">Update</button>
+
+        <button type="submit" class="update-button">Update Event</button>
       </form>
     </div>
   </div>

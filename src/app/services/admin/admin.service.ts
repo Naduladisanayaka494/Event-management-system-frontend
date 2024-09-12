@@ -84,4 +84,17 @@ export class AdminService {
       },
     });
   }
+
+  filterEventsByDateAndSinger(
+    startDate: string,
+    endDate: string,
+    singerId?: string
+  ): Observable<Event[]> {
+    let params: any = { startDate: startDate, endDate: endDate };
+    if (singerId) {
+      params.singerId = singerId;
+    }
+
+    return this.http.get<Event[]>(`${this.baseUrl}/filter`, { params });
+  }
 }
