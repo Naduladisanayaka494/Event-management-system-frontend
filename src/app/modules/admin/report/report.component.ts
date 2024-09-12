@@ -101,7 +101,6 @@ export class ReportComponent implements OnInit {
   }
 
   downloadReport(): void {
-    // Convert events to CSV or other format and trigger download
     const csvContent =
       'data:text/csv;charset=utf-8,' +
       this.events

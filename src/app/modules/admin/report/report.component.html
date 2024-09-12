@@ -1,24 +1,5 @@
 <div class="report-container">
   <h1 class="page-title">Event Report</h1>
-
-  <!-- Filter Section -->
-  <!-- <div class="filter-section">
-    <label for="startDate">Start Date:</label>
-    <input type="date" id="startDate" [(ngModel)]="filter.startDate">
-
-    <label for="endDate">End Date:</label>
-    <input type="date" id="endDate" [(ngModel)]="filter.endDate">
-
-    <label for="singer">Singer:</label>
-    <select id="singer" [(ngModel)]="filter.singerId">
-      <option *ngFor="let singer of singers" [value]="singer.id">{{ singer.name }}</option>
-    </select>
-
-    <button (click)="applyFilter()">Filter</button>
-    <button (click)="downloadReport()">Download Report</button>
-  </div> -->
-
-  <!-- Events Table -->
   <table class="events-table">
     <thead>
       <tr>
@@ -42,8 +23,6 @@
       </tr>
     </tbody>
   </table>
-
-  <!-- Edit Modal -->
   <div class="modal" *ngIf="selectedEvent">
     <div class="modal-content">
       <span class="close" (click)="closeEditModal()">&times;</span>
