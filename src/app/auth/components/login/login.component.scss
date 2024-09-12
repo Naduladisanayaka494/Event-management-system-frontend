@@ -1,24 +1,20 @@
 .success-snackbar {
   background-color: #4caf50;
-  /* Green color for success */
   color: white;
   position: fixed;
   top: 20px;
-  /* Position the snackbar 20px from the top */
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
-  /* Ensure it appears on top of other elements */
 }
 
 .error-snackbar {
   background-color: #f44336;
-  /* Red color for error */
   color: white;
   position: fixed;
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
-  /* Ensure it appears on top of other elements */
+
 }

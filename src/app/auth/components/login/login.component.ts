@@ -33,10 +33,10 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.loginform.value).subscribe({
         next: (res) => {
           console.log(res);
-          this.snackBar.open('Logged in successfully!', 'Close', {
-            duration: 3000,
-            panelClass: ['success-snackbar'],
-          });
+          // this.snackBar.open('Logged in successfully!', 'Close', {
+          //   duration: 3000,
+          //   panelClass: ['success-snackbar'],
+          // });
 
           if (res.userId != null) {
             const user = {
