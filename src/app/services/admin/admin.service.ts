@@ -97,4 +97,18 @@ export class AdminService {
 
     return this.http.get<Event[]>(`${this.baseUrl}/filter`, { params });
   }
+
+  filterEventsByDateAndSingerstatic(
+    startDate: string,
+    endDate: string,
+    singerId?: string
+  ): Observable<Event[]> {
+    const userId = StorageService.getUserId();
+    let params: any = { startDate: startDate, endDate: endDate };
+    if (singerId) {
+      params.singerId = userId;
+    }
+
+    return this.http.get<Event[]>(`${this.baseUrl}/filter`, { params });
+  }
 }
