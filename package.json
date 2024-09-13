@@ -25,6 +25,7 @@
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.8.3",
     "ng2-charts": "^2.4.3",
+    "ngx-spinner": "^10.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

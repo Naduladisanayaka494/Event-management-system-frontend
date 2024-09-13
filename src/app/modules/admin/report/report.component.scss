@@ -1,15 +1,14 @@
-/* Container Styling */
+
 .report-container {
   max-width: 1200px;
   margin: 2rem auto;
   padding: 2rem;
   background: #ffffff;
-  /* Change to white for a cleaner look */
   border-radius: 12px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Title */
+
 .page-title {
   text-align: center;
   color: #343a40;
@@ -18,7 +17,6 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* Filter Section */
 .filter-section {
   display: flex;
   flex-wrap: wrap;
@@ -42,7 +40,7 @@
   cursor: pointer;
   transition: background-color 0.3s;
   width: auto;
-  /* Adjust width to fit content */
+
 }
 
 .download-button:hover {
@@ -58,7 +56,7 @@
   cursor: pointer;
   transition: background-color 0.3s;
   width: auto;
-  /* Adjust width to fit content */
+
 }
 
 .filter-button:hover {
@@ -232,6 +230,21 @@
     width: 100%;
     margin-top: 0.5rem;
   }
+
+  .reset-button {
+            background-color: #007bff;
+              color: #fff;
+              padding: 0.8rem 1.5rem;
+              border-radius: 8px;
+              font-size: 1rem;
+              cursor: pointer;
+              transition: background-color 0.3s;
+              width: auto;
+            }
+
+            .reset-button:hover {
+              background-color: #e0a800;
+            }
 }
 
 @media (max-width: 480px) {
@@ -250,4 +263,7 @@
   .update-button {
     padding: 0.6rem 1rem;
   }
+
+
+
 }

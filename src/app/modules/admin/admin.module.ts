@@ -7,6 +7,7 @@ import { ReportComponent } from './report/report.component';
 import { EditTranactionComponent } from './edit-tranaction/edit-tranaction.component';
 import { ChartsModule } from 'ng2-charts';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AdminRoutingModule,
     ChartsModule,
     ReactiveFormsModule,
+    NgxSpinnerModule,
   ],
 })
 export class AdminModule {}

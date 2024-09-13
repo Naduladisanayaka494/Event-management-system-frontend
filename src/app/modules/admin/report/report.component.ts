@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AdminService } from '../../../services/admin/admin.service'; // Adjust the path
 import jsPDF from 'jspdf';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class ReportComponent implements OnInit {
   constructor(
     private eventService: AdminService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private spinner: NgxSpinnerService
   ) {
     this.editForm = this.fb.group({
       eventName: ['', Validators.required],
@@ -60,7 +62,7 @@ export class ReportComponent implements OnInit {
     this.editForm.patchValue({
       eventName: event.eventName,
       location: event.location,
-      eventDateTime: new Date(event.eventDateTime).toISOString().slice(0, 16), 
+      eventDateTime: new Date(event.eventDateTime).toISOString().slice(0, 16),
       assignedSingerId: event.assignedSingerId,
     });
   }
@@ -69,69 +71,78 @@ export class ReportComponent implements OnInit {
     this.selectedEvent = null;
   }
 
+
   filterEvents(): void {
+    this.spinner.show()
     const { startDate, endDate, singerId } = this.filterForm.value;
 
-    if (this.filterForm.valid) {
-      if (startDate && endDate && singerId) {
-        const formattedStartDate =
-          new Date(startDate).toISOString().split('T')[0] + 'T00:00:00';
-        const formattedEndDate =
-          new Date(endDate).toISOString().split('T')[0] + 'T00:00:00';
-
-        this.eventService
-          .filterEventsByDateAndSinger(
-            formattedStartDate,
-            formattedEndDate,
-            singerId
-          )
-          .subscribe(
-            (filteredEvents) => {
-              this.events = filteredEvents;
-            },
-            (error) => {
-              alert('Failed to filter events.');
-              console.error('Filter error', error);
-            }
-          );
-      } else {
-        this.eventService.getAllEvents().subscribe((res: any) => {
-          this.events = res;
-        });
-      }
+    if (this.filterForm.valid && startDate && endDate) {
+      const formattedStartDate =
+        new Date(startDate).toISOString().split('T')[0] + 'T00:00:00';
+      const formattedEndDate =
+        new Date(endDate).toISOString().split('T')[0] + 'T00:00:00';
+      this.eventService
+        .filterEventsByDateAndSinger(
+          formattedStartDate,
+          formattedEndDate,
+          singerId
+        )
+        .subscribe(
+          (filteredEvents) => {
+            this.events = filteredEvents;
+               this.spinner.hide();
+          },
+          (error) => {
+            alert('Failed to filter events.');
+               this.spinner.hide();
+            console.error('Filter error', error);
+          }
+        );
+    } else {
+      alert('Please fill in both the start and end dates.');
+          this.spinner.hide();
     }
   }
 
   updateEvent(): void {
+    this.spinner.show()
     if (this.editForm.valid) {
       const updatedEvent = {
-        ...this.editForm.value
+        ...this.editForm.value,
       };
 
-      this.eventService.updateEvent(this.selectedEvent.id, updatedEvent).subscribe(
-        () => {
-          alert('Event updated successfully!');
-          this.loadEvents();
-          this.closeEditModal();
-        },
-        (error) => {
-          alert('Failed to update event.');
-          console.error('Update failed', error);
-        }
-      );
+      this.eventService
+        .updateEvent(this.selectedEvent.id, updatedEvent)
+        .subscribe(
+          () => {
+            alert('Event updated successfully!');
+            this.loadEvents();
+            this.closeEditModal();
+            this.spinner.hide();
+          },
+          (error) => {
+            alert('Failed to update event.');
+            console.error('Update failed', error);
+             this.spinner.hide();
+          }
+        );
     }
   }
 
   deleteEvent(id: number): void {
+       this.spinner.show();
     if (confirm('Are you sure you want to delete this event?')) {
       this.eventService.deleteEvent(id).subscribe(
         () => {
           alert('Event deleted successfully!');
           this.loadEvents();
+          this.spinner.hide();
         },
         (error) => {
           alert('Failed to delete event.');
+             this.spinner.hide();
           console.error('Delete failed', error);
+
         }
       );
     }
@@ -183,5 +194,14 @@ export class ReportComponent implements OnInit {
 
     // Save PDF
     doc.save('events_report.pdf');
+  }
+
+  resetFilters(): void {
+    this.filterForm.reset({
+      startDate: '',
+      endDate: '',
+      singerId: '',
+    });
+    this.loadEvents();
   }
 }
